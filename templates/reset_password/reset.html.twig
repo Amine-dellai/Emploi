@@ -1,0 +1,84 @@
+{% block title %}Reset your password{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3); /* Soft gradient background */
+            font-family: Arial, sans-serif;
+            height: 100vh; /* Full height for vertical centering */
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            margin: 0; /* Remove default margin */
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width for responsiveness */
+            max-width: 400px; /* Set max width */
+            animation: fadeIn 0.8s ease-in-out; /* Animation for container */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }
+
+        input:focus {
+            border-color: #4caf50; /* Change border color on focus */
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add shadow on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease; /* Smooth transition */
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #1e88e5, #1ab7e8); /* Darker gradient on hover */
+            transform: scale(1.05); /* Scale effect on hover */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Reset your password</h1>
+        {{ form_start(resetForm) }}
+            {{ form_row(resetForm.plainPassword) }}
+            <button class="btn btn-primary">Reset password</button>
+        {{ form_end(resetForm) }}
+    </div>
+{% endblock %}

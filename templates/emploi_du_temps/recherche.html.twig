@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche Emploi{% endblock %}
+
+{% block body %}
+    <h1 class="page-title">Recherche d'Emploi du Temps</h1>
+
+    <form method="get" action="{{ path('emploi_du_temps_recherche') }}" class="search-form mb-4">
+        <div class="form-group">
+            <label for="jour">Jour de la semaine</label>
+            <input type="text" id="jour" name="jour" class="form-control input-animation" placeholder="Entrez un jour de la semaine">
+        </div>
+
+        <div class="form-group">
+            <label for="titre">Titre</label>
+            <input type="text" id="titre" name="titre" class="form-control input-animation" placeholder="Entrez un titre">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-animate">Rechercher</button>
+    </form>
+
+    {% if emplois is not empty %}
+        <h3>Résultats de recherche:</h3>
+        <table class="table table-striped animated fadeIn">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Enseignant</th>
+                    <th>Jour</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emploi in emplois %}
+                    <tr>
+                        <td>{{ emploi.titre }}</td>
+                        <td>{{ emploi.lieu }}</td>
+                        <td>{{ emploi.enseignant }}</td>
+                        <td>{{ emploi.jour }}</td>
+                        <td>{{ emploi.debut|date('H:i') }}</td>
+                        <td>{{ emploi.fin|date('H:i') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun emploi du temps trouvé pour cette recherche.</p>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Basic styling for the page */
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #4e73df;
+            margin-bottom: 20px;
+        }
+
+        .search-form {
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .input-animation {
+            transition: all 0.3s ease;
+        }
+
+        .input-animation:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 5px rgba(78, 115, 223, 0.8);
+        }
+
+        .btn-animate {
+            transition: all 0.3s ease;
+        }
+
+        .btn-animate:hover {
+            background-color: #007bff;
+            transform: scale(1.05);
+        }
+
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .table-striped tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* FadeIn animation for results */
+        .animated {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom animation for table rows */
+        .table-striped tr {
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .search-form {
+                padding: 10px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+{% endblock %}

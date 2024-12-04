@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Emploi du Temps{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="page-title">Ajouter un Emploi du Temps</h1>
+
+        {{ form_start(form, {'attr': {'class': 'emploi-form'}}) }}
+            <div class="form-group">
+                {{ form_widget(form) }}
+            </div>
+            <button type="submit" class="btn btn-success submit-btn">Créer</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('emploi_du_temps_index') }}" class="btn btn-secondary mt-3 back-btn">Retour à la liste</a>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Page Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* Form styling */
+        .emploi-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        /* Buttons */
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background-color: #808080;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #575757;
+        }
+
+        /* Form Animation */
+        .emploi-form {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+{% endblock %}

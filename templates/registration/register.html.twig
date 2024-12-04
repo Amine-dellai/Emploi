@@ -1,0 +1,137 @@
+
+
+{% block stylesheets %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3); /* Soft gradient background */
+            font-family: Arial, sans-serif;
+            height: 100vh; /* Full height for vertical centering */
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            margin: 0; /* Remove default margin */
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width for responsiveness */
+            max-width: 400px; /* Set max width */
+            animation: slideIn 0.5s ease-in-out; /* Animation for container */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .alert {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }
+
+        input:focus {
+            border-color: #4caf50; /* Change border color on focus */
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add shadow on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease; /* Smooth transition */
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #1e88e5, #1ab7e8); /* Darker gradient on hover */
+            transform: scale(1.05); /* Scale effect on hover */
+        }
+
+        .additional-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .additional-links a {
+            color: #2196F3;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .additional-links a:hover {
+            color: #1e88e5;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+        <h1>Register</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            <div class="form-group">
+                {{ form_row(registrationForm.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(registrationForm.agreeTerms) }}
+            </div>
+
+            <button type="submit">Register</button>
+        {{ form_end(registrationForm) }}
+
+        <div class="additional-links">
+            <p>
+                Already have an account? 
+                <a href="{{ path('app_login') }}">Log in</a>
+            </p>
+            <p>
+                Forgot your password? 
+                <a href="{{ path('app_forgot_password_request') }}">Reset it here</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

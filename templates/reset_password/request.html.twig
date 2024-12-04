@@ -1,0 +1,111 @@
+
+
+{% block stylesheets %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #f7f9fc, #dce3f0); /* Soft gradient background */
+            font-family: Arial, sans-serif;
+            height: 100vh; /* Full height for vertical centering */
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            margin: 0; /* Remove default margin */
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width for responsiveness */
+            max-width: 400px; /* Set max width */
+            animation: fadeIn 0.8s ease-in-out; /* Animation for container */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .alert {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }
+
+        input:focus {
+            border-color: #007bff; /* Change border color on focus */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        small {
+            display: block;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #007bff, #66afe9);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease; /* Smooth transition */
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #0056b3, #4d90e6); /* Darker gradient on hover */
+            transform: scale(1.05); /* Scale effect on hover */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+        <h1>Reset your password</h1>
+
+        {{ form_start(requestForm) }}
+            {{ form_row(requestForm.email) }}
+            <div>
+                <small>
+                    Enter your email address, and we will send you a
+                    link to reset your password.
+                </small>
+            </div>
+
+            <button class="btn btn-primary">Send password reset email</button>
+        {{ form_end(requestForm) }}
+    </div>
+{% endblock %}

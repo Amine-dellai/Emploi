@@ -1,5 +1,53 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+# config/routes.yaml
+
+home:
+    path: /
+    controller: App\Controller\HomeController::index
+    
+app_register:
+  path: /register
+  controller: App\Controller\RegistrationController::register
+
+app_login:
+  path: /login
+  controller: App\Controller\SecurityController::login
+
+app_forgot_password_request:
+  path: /reset-password
+  controller: App\Controller\ResetPasswordController::request
+
+app_check_email:
+  path: /reset-password/check-email
+  controller: App\Controller\ResetPasswordController::checkEmail
+
+app_reset_password:
+  path: /reset-password/reset/{token}
+  controller: App\Controller\ResetPasswordController::reset
+app_verify_email:
+  path: /verify-email
+  controller: App\Controller\RegistrationController::verifyEmail
+
+emploi_du_temps_index:
+    path: /emploi-du-temps
+    controller: App\Controller\EmploiDuTempsController::index
+
+emploi_du_temps_api:
+    path: /emploi-du-temps/api
+    controller: App\Controller\EmploiDuTempsController::api
+
+emploi_du_temps_new:
+    path: /emploi-du-temps/nouveau
+    controller: App\Controller\EmploiDuTempsController::new
+
+emploi_du_temps_edit:
+    path: /emploi-du-temps/{id}/modifier
+    controller: App\Controller\EmploiDuTempsController::edit
+
+emploi_du_temps_delete:
+    path: /emploi-du-temps/{id}/supprimer
+    controller: App\Controller\EmploiDuTempsController::delete
+    methods: [POST]
+emploi_du_temps_recherche:
+    path: /recherche
+    controller: App\Controller\SearchController::search
+

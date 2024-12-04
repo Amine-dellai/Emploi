@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Emploi du Temps</h1>
+
+    <table class="emploi-table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Lieu</th>
+                <th>Enseignant</th>
+                <th>Jour</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emploi in emplois %}
+            <tr class="emploi-row">
+                <td>{{ emploi.titre }}</td>
+                <td>{{ emploi.lieu }}</td>
+                <td>{{ emploi.enseignant }}</td>
+                <td>{{ emploi.jour }}</td>
+                <td>{{ emploi.debut|date('H:i') }}</td>
+                <td>{{ emploi.fin|date('H:i') }}</td>
+                <td>
+                    <a href="{{ path('emploi_du_temps_edit', {id: emploi.id}) }}" class="edit-btn">Modifier</a>
+                    <form action="{{ path('emploi_du_temps_delete', {id: emploi.id}) }}" method="post" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ emploi.id) }}">
+                        <button type="submit" class="delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet emploi du temps ?');">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('emploi_du_temps_new') }}" class="add-btn">Ajouter un nouvel emploi</a>
+
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* General table styles */
+        .emploi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: 'Arial', sans-serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .emploi-table th, .emploi-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .emploi-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .emploi-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .emploi-table tr:hover {
+            background-color: #f5f5f5;
+            transform: scale(1.02);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Action buttons */
+        .edit-btn, .delete-btn {
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+
+        .delete-btn:hover {
+            background-color: #da190b;
+        }
+
+        .add-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-btn:hover {
+            background-color: #005f75;
+        }
+
+        /* Table animations */
+        .emploi-row {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+{% endblock %}
